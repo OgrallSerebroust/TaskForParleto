@@ -4,7 +4,7 @@
 
 <a href="{% url 'expenses:expense-create' %}">add</a>
 
-<form method="get" action="">
+<form method="get" action="" id="SearchForm">
   {{form.as_p}}
   <button type="submit">search</button>
 </form>
@@ -14,10 +14,26 @@
 	<thead>
 	  <tr>
 		<th>no.</th>
-		<th>category</th>
+          <th>
+              category
+              <button form="SearchForm" type="submit" name="sorting_by_category" value="ascending">
+                  &#8595;
+              </button>
+              <button form="SearchForm" type="submit" name="sorting_by_category" value="descending">
+                  &#8593;
+              </button>
+          </th>
 		<th>name</th>
 		<th>amount</th>
-		<th>date</th>
+		<th>
+            date
+            <button form="SearchForm" type="submit" name="sorting_by_date" value="ascending">
+                &#8595;
+            </button>
+            <button form="SearchForm" type="submit" name="sorting_by_date" value="descending">
+                &#8593;
+            </button>
+        </th>
 		<th>actions</th>
 	  </tr>
 	</thead>

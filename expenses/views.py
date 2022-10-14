@@ -24,6 +24,14 @@ class ExpenseListView(ListView):
                 queryset = queryset.filter(date__lte=to_date)
             if categories:
                 queryset = queryset.filter(category__in=list(map(int, categories)))
+            if self.request.GET.get("sorting_by_category") == "ascending":
+                queryset = queryset.order_by("category")
+            elif self.request.GET.get("sorting_by_category") == "descending":
+                queryset = queryset.order_by("-category")
+            if self.request.GET.get("sorting_by_date") == "ascending":
+                queryset = queryset.order_by("date")
+            elif self.request.GET.get("sorting_by_date") == "descending":
+                queryset = queryset.order_by("-date")
 
         return super().get_context_data(
             form=form,
