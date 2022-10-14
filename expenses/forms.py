@@ -1,14 +1,16 @@
 from django import forms
-from .models import Expense
+from .models import Expense, Category
 
 
 class ExpenseSearchForm(forms.ModelForm):
     date_to_field = forms.DateField(label="To date:")
+    category = forms.MultipleChoiceField(choices=list(Category.objects.values_list("id", "name")),
+                                         widget=forms.widgets.CheckboxSelectMultiple())
     field_order = ["name", "date", "date_to_field", "category"]
 
     class Meta:
         model = Expense
-        fields = ('name', "date", "category")
+        fields = ('name', "date")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

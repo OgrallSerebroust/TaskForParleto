@@ -1,7 +1,4 @@
-import datetime
-
 from django.views.generic.list import ListView
-
 from .forms import ExpenseSearchForm
 from .models import Expense, Category
 from .reports import summary_per_category
@@ -13,18 +10,20 @@ class ExpenseListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
-
         form = ExpenseSearchForm(self.request.GET)
         if form.is_valid():
             name = form.cleaned_data.get('name', '').strip()
-            from_date = form.cleaned_data.get("date", '')
-            to_date = form.cleaned_data.get("date_to_field", "")
+            from_date = form.cleaned_data.get("date")
+            to_date = form.cleaned_data.get("date_to_field")
+            categories = form.cleaned_data.get("category")
             if name:
                 queryset = queryset.filter(name__icontains=name)
             if from_date:
                 queryset = queryset.filter(date__gte=from_date)
             if to_date:
                 queryset = queryset.filter(date__lte=to_date)
+            if categories:
+                queryset = queryset.filter(category__in=list(map(int, categories)))
 
         return super().get_context_data(
             form=form,
@@ -36,4 +35,3 @@ class ExpenseListView(ListView):
 class CategoryListView(ListView):
     model = Category
     paginate_by = 5
-
