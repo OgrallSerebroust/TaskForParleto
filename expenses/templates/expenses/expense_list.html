@@ -72,4 +72,24 @@
 	{% endfor %}
   </tr>
 </table>
+    <table>
+        <tr>
+            <td>
+                Summary according to these data
+            </td>
+            <td>
+                {{ summary_total_queryset.amount__sum|floatformat:2 }}
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                Summary total:
+            </td>
+            <td>
+                {{ summary_total.amount__sum|floatformat:2 }}
+            </td>
+        </tr>
+    </table>
 {% endblock %}
