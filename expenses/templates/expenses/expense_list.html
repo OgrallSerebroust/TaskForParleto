@@ -92,4 +92,52 @@
             </td>
         </tr>
     </table>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>
+                    Year
+                </th>
+                <th>
+                    Expense total
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for year, amount_sum in summary_per_year %}
+                <tr>
+                    <td>
+                        {{ year|date:"M Y" }}
+                    </td>
+                    <td>
+                        {{ amount_sum|floatformat:2 }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>
+                    Month
+                </th>
+                <th>
+                    Expense total
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for month, amount_sum in summary_per_month %}
+                <tr>
+                    <td>
+                        {{ month|date:"M Y" }}
+                    </td>
+                    <td>
+                        {{ amount_sum|floatformat:2 }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
